@@ -1,8 +1,21 @@
 !!!
 %html
   %head
+    %script{src: "https://code.jquery.com/jquery-3.1.1.min.js", crossorigin: "anonymous"}
+    %script{src: "helper.js"}      
     %title My Sinatra Website
   %body
-    %h1 Welcome
-  %p
-    Welcome to my website made with Sinatra and HAML
+    #main
+      %form{action: '/analyzer', method: 'get'}
+        %label Enter twitter handle
+        %input#twitterHandle{name: 'twitterHandle', type:'text'}
+        %button#search
+        #status loading...
+:javascript
+
+  $(document).ready( function() {
+    console.log('working');
+    var stars = #{@tweets.to_json} // inline ruby inside javascript
+    console.log(stars)
+  } );
+
