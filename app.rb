@@ -10,7 +10,12 @@ get '/' do
 end
 
 get '/analyzer' do
+  uri = "https://mighty-shelf-28167.herokuapp.com/analyze/#{params[:twitterHandle]}"
   params[:twitterHandle] ||= 'need to set instance variable in controller'				
-  @tweets =	{'data': "100 analyzed tweets for #{params[:twitterHandle]}"}
+	@polarity = URI.parse(uri).read
 	haml :index
 end
+
+=begin
+@tweets =	{'data': "100 analyzed tweets for #{params[:twitterHandle]}\n polarity: #{polarity}" }
+=end

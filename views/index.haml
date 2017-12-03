@@ -1,21 +1,41 @@
 !!!
 %html
   %head
-    %script{src: "https://code.jquery.com/jquery-3.1.1.min.js", crossorigin: "anonymous"}
-    %script{src: "helper.js"}      
     %title My Sinatra Website
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
+    %link{rel: "stylesheet", href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity:"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin:"anonymous"}
+    %script{src: "https://code.jquery.com/jquery-3.1.1.min.js", crossorigin: "anonymous"}
+    %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity: "sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin:"anonymous"}
+    %script{src: "helper.js"}      
+    
   %body
-    #main
-      %form{action: '/analyzer', method: 'get'}
-        %label Enter twitter handle
-        %input#twitterHandle{name: 'twitterHandle', type:'text'}
-        %button#search
-        #status loading...
+    %div#wrapper_for_drawing.container-fluid
+      .text-center
+        %h1 App Desc
+        %h4 Elaboration of App Desc
+        #search_box
+          %form{action: '/analyzer', method: 'get'}
+            %label Enter twitter handle
+            %input#twitterHandle{name: 'twitterHandle', type:'text'}
+            %button#search
+            loading... &nbsp;
+            #status.glyphicon.glyphicon-equalizer 
+            #chart_here
+        #display_user_timeline
+        %footer
+          Made with
+          .glyphicon.glyphicon-heart
+-if @polarity.nil? #== false
+  ='no fucks'
+  //:javascript
+  //var test = #{@polarity} 
+  //  console.log(test)
+
 :javascript
 
   $(document).ready( function() {
     console.log('working');
-    var stars = #{@tweets.to_json} // inline ruby inside javascript
-    console.log(stars)
+    var analyzed_tweets = #{@polarity.to_json} // inline ruby inside javascript
+    console.log(#{@polarity})
   } );
 
