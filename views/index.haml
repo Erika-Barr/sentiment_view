@@ -6,7 +6,7 @@
     %link{rel: "stylesheet", href: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity:"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin:"anonymous"}
     %script{src: "https://code.jquery.com/jquery-3.1.1.min.js", crossorigin: "anonymous"}
     %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity: "sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin:"anonymous"}
-    %script{src: "helper.js"}      
+    %script{src: "helper.js", defer: 'defer'}      
     
   %body
     %div#wrapper_for_drawing.container-fluid
@@ -14,28 +14,34 @@
         %h1 App Desc
         %h4 Elaboration of App Desc
         #search_box
-          %form{action: '/analyzer', method: 'get'}
-            %label Enter twitter handle
-            %input#twitterHandle{name: 'twitterHandle', type:'text'}
-            %button#search
-            loading... &nbsp;
-            #status.glyphicon.glyphicon-equalizer 
+          %form
+            /%label Enter twitter handle
+            %input#twitterHandle{type:'text', placeholder: 'Enter twitter handle'}
+            %button#search 
+              %span.glyphicon.glyphicon-search
+              Analyze My Tweets
+            %br
+            .glyphicon.glyphicon-equalizer 
+              loading...
             #chart_here
-        #display_user_timeline
+        .hidden#display_user_timeline 
+        %button.btn.btn-primary#analyzedTweets{type: "button"}
+          Analyzed Tweets 
+          %span.badge#tweetCount 
+            0
         %footer
           Made with
           .glyphicon.glyphicon-heart
--if @polarity.nil? #== false
-  ='no fucks'
-  //:javascript
-  //var test = #{@polarity} 
-  //  console.log(test)
 
+// to inject ruby into javascript, use interpolatation 
+// e.g var someVal = #{@someRuby.to_json}
 :javascript
+    $('#search').click( function(e) {
+       renameMe( $('#twitterHandle').val(), e ); 
+    }); 
 
-  $(document).ready( function() {
-    console.log('working');
-    var analyzed_tweets = #{@polarity.to_json} // inline ruby inside javascript
-    console.log(#{@polarity})
-  } );
+   // 335.5 -  
+    $('#analyzedTweets').click( function () {
+      $('#display_user_tweets').toggleClass('.hidden');
+    });
 
