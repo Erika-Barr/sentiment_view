@@ -19,14 +19,11 @@ function sunburstBuildChartData(tweets ) {
 							{"id": "1.2", "parent": "0.0", "name": "neutral"},
 							{"id": "1.3", "parent": "0.0", "name": "negative"}
 						 ]; 
-							// fix sentiment algo from external service 
-							//{"id": "1.2", "parent": "0.0", "name": "neutral"}, 
 	data.slice(1).forEach( d =>  
 															(sunburstBuildPointData(tweets,d))
 														 	.forEach( e => data.push(e))
 											 )
-	data.slice(4).forEach( (e, i) => e.id = "2." + (i+1) ) // slice(4) including neutral
-	console.log(data);
+	data.slice(4).forEach( (e, i) => e.id = "2." + (i+1) ) 
 	return data; 
 }
 
@@ -45,14 +42,14 @@ function sunburstBuildChart(data) {
 		series: [{
 							type: "sunburst",	
 							data: sunburstBuildChartData(tweets),
-							allowToDrillNode: true,
+							allowDrillToNode: true,
 							cursor: "pointer",
 							dataLabels: {
 												   format: "{point.name}",
 													 filter: {
 																		property: "innerArcLength",
 																	 	operator: ">",
-																	 	value: 		"10"
+																	 	value: 		"50"
 																	 }	
 													},
 						 levels: [
@@ -70,7 +67,15 @@ function sunburstBuildChart(data) {
 																			 key: "brightness",
 																				to: -0.5
 																			}
-										}	
+										},
+										{
+											level: 4,
+											colorVariation: {
+												key: 'brightness',
+												 to: 0.5
+
+											}
+										}
 										]
 					 }],
 		tooltip: {
@@ -125,9 +130,7 @@ function getSentiment(handle, e) {
     dataType: 'json',
     data: {"query": handle}, 
     success: function(data) {
-			console.log(data)
 			var container = $("#display_user_timeline");
-			//data.tweets -> type Array
 			sunburstBuildChart(data);
 			content = tweetsToHTML(data.tweets);
 			container.html(content);
