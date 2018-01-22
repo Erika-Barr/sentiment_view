@@ -49,16 +49,13 @@ function sunburstBuildChart(data) {
 													 filter: {
 																		property: "innerArcLength",
 																	 	operator: ">",
-																	 	value: 		"50"
+																	 	value: 		"10"
 																	 }	
 													},
 						 levels: [
 										 {
 											 level: 2,
 											 colorByPoint: true,
-											 dataLabels: {
-																		rotationMode: "parallel"																		 
-																	 }
 										 },	
 										{
 											 level: 3,
