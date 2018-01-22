@@ -10,6 +10,9 @@ get '/' do
 end
 
 get '/analyzer' do
+	# python sentiment service
   uri = "https://mighty-shelf-28167.herokuapp.com/analyze/#{request['query']}"
-	twitter_analysis = URI.parse(uri).read
+	
+	# returns JSON response
+	twitter_analysis = URI.parse(uri).read 
 end
