@@ -2,7 +2,6 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'open-uri'
-require 'json'
 require 'pry' 
 get '/' do
 	@tweets = {'data': 'enter a twitter handle please'}

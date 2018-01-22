@@ -49,16 +49,13 @@ function sunburstBuildChart(data) {
 													 filter: {
 																		property: "innerArcLength",
 																	 	operator: ">",
-																	 	value: 		"50"
+																	 	value: 		"15"
 																	 }	
 													},
 						 levels: [
 										 {
 											 level: 2,
 											 colorByPoint: true,
-											 dataLabels: {
-																		rotationMode: "parallel"																		 
-																	 }
 										 },	
 										{
 											 level: 3,
@@ -90,37 +87,6 @@ function typeLookUp(instance) {
   return Object.prototype.toString.call(instance)
 }
 
-// ===== Set CSS Color For Sentiments =====
-function colorSentiment(sentiment) {
-	var colors = {
-		"positive": "panel-success",
-		"neutral": "panel-primary",
-		"negative": "panel-danger"
-	}
-	return colors[sentiment]
-}
-
-// ===== Make HTML For Each Tweet =====
-function tweetsToHTML(tweets) {
-	return ("<div>\n" 
-					+ tweets.map(e => [ "<div class = 'panel "+ colorSentiment(e.sentiment) +"'> ", 
-					      								"<div class = 'panel-heading'>", 
-					      								  "<h3 class = 'panel-title' >",
-					      					 				  e.username,
-					      								  "</<h3>",
-					      								"</div>",
-					      								"<div class='panel-body'>",
-					      									"<blockquote>",
-					      										e.text,
-					      								  "</blockquote>",
-					      								"</div>",		
-					      					   "</div>" ]
-									)
-						 			.map( e => e.join("") )
-						 			.join("\n")  
-						 			+ "\n</div>")
-}
-
 // ===== AJAX =====
 function getSentiment(handle, e) {
 	e.preventDefault();
@@ -130,11 +96,7 @@ function getSentiment(handle, e) {
     dataType: 'json',
     data: {"query": handle}, 
     success: function(data) {
-			var container = $("#display_user_timeline");
 			sunburstBuildChart(data);
-			content = tweetsToHTML(data.tweets);
-			container.html(content);
-			$("#tweetCount").text(data.tweets.length)
 		} 
 	}); 
 }

@@ -27,12 +27,7 @@
             %br
             .glyphicon.glyphicon-equalizer 
               loading...
-        %button.btn.btn-primary#analyzedTweets{type: "button"}
-          Show Analyzed Tweets 
-          %span.badge#tweetCount 
-            0
         #chart{style: "min-width: 310px; max-width: 800px; margin: 0 auto;"}
-        #display_user_timeline 
         %footer
           Made with
           .glyphicon.glyphicon-heart
@@ -45,11 +40,5 @@
       getSentiment(value, e) 
     });
     
-    $('#analyzedTweets').click(function() {
-      var text = $('#analyzedTweets').text();
-      $('#analyzedTweets').text( 
-        text == 'Show Analyzed Tweets' ? 'Hide Analyzed Tweets' : 'Show Analyzed Tweets' )
-      $('#display_user_timeline').toggle()
-    });
 
 
