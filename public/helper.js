@@ -13,7 +13,9 @@ function sunburstBuildPointData(tweets, data) {
 				)
 	return output				
 }
-function sunburstBuildChartData(tweets ) { 
+function sunburstBuildChartData(tweet_data) { 
+  var tweets = tweet_data.tweets;
+				// percentage + sentiment label
   var data = [{"id": "0.0", "parent": "", "name": "sentiment"},
 							{"id": "1.1", "parent": "0.0", "name": "positive"},
 							{"id": "1.2", "parent": "0.0", "name": "neutral"},
@@ -34,14 +36,14 @@ function sunburstBuildChart(data) {
 	Highcharts.chart('chart', {
 		chartHeight: "100%",
 		title: {
-						text: "Sentiment Analysis for insert **Handle**" 
+						text: "" 
 					 },
 		subtitle: {
-						text: '<a href="https://twitter.com/'+ username +'" >' + 'Twitter Profile for @' + username  + '</a>'	
+						text: '<a href="https://twitter.com/'+ username +'" >' + 'Chart loaded about @' + username  + '</a>'	
 						  },
 		series: [{
 							type: "sunburst",	
-							data: sunburstBuildChartData(tweets),
+							data: sunburstBuildChartData(data),
 							allowDrillToNode: true,
 							cursor: "pointer",
 							dataLabels: {
@@ -88,14 +90,14 @@ function typeLookUp(instance) {
 }
 
 // ===== AJAX =====
-function getSentiment(handle, e) {
-	e.preventDefault();
+function getSentiment(handle) {
   $.ajax({
     type: 'GET',
     url: 'analyzer',
     dataType: 'json',
     data: {"query": handle}, 
     success: function(data) {
+      $('#loading').html('');
 			sunburstBuildChart(data);
 		} 
 	}); 
