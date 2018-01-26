@@ -1,6 +1,6 @@
 // ===== Sunburst Chart Functions =====
 function sunburstBuildPointData(tweets, data) {
-	var output = []; 
+    var output = []; 
 	tweets.filter(e => e.sentiment === data.name)
 				.map( (e, i) => output.push( {
 																	"id": "", 
