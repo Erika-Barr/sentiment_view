@@ -15,11 +15,10 @@ function sunburstBuildPointData(tweets, data) {
 }
 function sunburstBuildChartData(tweet_data) { 
   var tweets = tweet_data.tweets;
-				// percentage + sentiment label
   var data = [{"id": "0.0", "parent": "", "name": "sentiment"},
-							{"id": "1.1", "parent": "0.0", "name": "positive"},
-							{"id": "1.2", "parent": "0.0", "name": "neutral"},
-							{"id": "1.3", "parent": "0.0", "name": "negative"}
+							{"id": "1.1", "parent": "0.0", "name": "positive", "text": "dive into positive tweets"},
+							{"id": "1.2", "parent": "0.0", "name": "neutral", "text": "dive into neutral tweets"},
+							{"id": "1.3", "parent": "0.0", "name": "negative", "text": "dive into negative tweets"}
 						 ]; 
 	data.slice(1).forEach( d =>  
 															(sunburstBuildPointData(tweets,d))
