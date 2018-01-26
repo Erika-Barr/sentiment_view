@@ -3,11 +3,11 @@ function sunburstBuildPointData(tweets, data) {
     var output = []; 
 	tweets.filter(e => e.sentiment === data.name)
         .map( (e, i) => output.push( {
-        "id": "", 
-        "parent": data.id,
-        "name": "Tweet#" + (i+1),
-        "value": (i+1),
-        "text": e.text
+            "id": "", 
+            "parent": data.id,
+            "name": "Tweet#" + (i+1),
+            "value": (i+1),
+            "text": e.text
         } ))
 	return output				
 }
@@ -76,19 +76,19 @@ function sunburstBuildChart(data) {
 }
 // ===== print type of instance =====
 function typeLookUp(instance) {
-  return Object.prototype.toString.call(instance)
+    return Object.prototype.toString.call(instance)
 }
 
 // ===== AJAX =====
 function getSentiment(handle) {
-  $.ajax({
-    type: 'GET',
-    url: 'analyzer',
-    dataType: 'json',
-    data: {"query": handle}, 
-    success: function(data) {
-      $('#loading').html('');
-			sunburstBuildChart(data);
-		} 
-	}); 
+    $.ajax({
+        type: 'GET',
+        url: 'analyzer',
+        dataType: 'json',
+        data: {"query": handle}, 
+        success: function(data) {
+        $('#loading').html('');
+            sunburstBuildChart(data);
+        } 
+    }); 
 }
