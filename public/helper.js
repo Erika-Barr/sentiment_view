@@ -9,7 +9,7 @@ function sunburstBuildPointData(tweets, data) {
             "value": (i+1),
             "text": e.text
         } ))
-	return output				
+    return output				
 }
 function sunburstBuildChartData(tweet_data) { 
     var tweets = tweet_data.tweets;
@@ -20,7 +20,7 @@ function sunburstBuildChartData(tweet_data) {
     ]; 
     data.slice(1).forEach( d => (sunburstBuildPointData(tweets,d)).forEach( e => data.push(e)))
     data.slice(4).forEach( (e, i) => e.id = "2." + (i+1) ) 
-	return data; 
+    return data; 
 }
 
 function sunburstBuildChart(data) {
